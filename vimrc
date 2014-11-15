@@ -14,6 +14,7 @@ augroup vimrc_autocmds
         autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
         autocmd FileType python match Excess /\%120v.*/
         autocmd FileType python set nowrap
+        autocmd FileType cfg set foldmethod=indent
 augroup END
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion=1
