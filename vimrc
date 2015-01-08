@@ -18,15 +18,27 @@ augroup vimrc_autocmds
 augroup END
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion=1
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Powerline deactivate in sake of airline(works better with buffers)
+" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" let g:Powerline_symbols = 'fancy'
+"
+Bundle 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_theme = 'powerlineish'
+let g:airline_toggle_whitespace = 1
+let g:airline#extensions#whitespace#enabled = 0
+
 Bundle 'scrooloose/nerdtree'
 Bundle 'git://github.com/davidhalter/jedi-vim' 
 map <C-q> :NERDTreeToggle<CR>
-let g:Powerline_symbols = 'fancy'
 Bundle 'ervandew/supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'altercation/vim-colors-solarized'
+" fugitive needed to show git branch in airline
+Bundle 'tpope/vim-fugitive'
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -41,6 +53,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "
 " " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" Jedi automatically starts the completion, if you type a dot, e.g. str., if
+" you don't want this:
+let g:jedi#popup_on_dot = 0
 
 set relativenumber
 
@@ -63,6 +79,9 @@ set nofsync
 
 " авто-переход в каталог текущего файла
 set autochdir
+
+" подсвечиваем current line
+set cursorline
 
 " ширина таба 4 символа
 set tabstop=4
@@ -193,6 +212,7 @@ au!
 augroup END
 
 
+" vim -b : edit binary using xxd-format!
 
 "-------------------------
 "" Горячие клавиши
@@ -313,6 +333,28 @@ imap <PageUp> <C-O><C-U><C-O><C-U>
 nmap <PageDown> <C-D><C-D>
 imap <PageDown> <C-O><C-D><C-O><C-D>
 
+" tab shortcuts
+let mapleader = ','
+" This allows buffers to be hidden if you've modified a buffer.
+" " This is almost a must if you wish to use buffers in this way.
+set hidden
+"
+" " To open a new empty buffer
+" " This replaces :tabnew which I used to bind to this mapping
+map <leader>T :enew<cr>
+"
+" " Move to the next buffer
+map <leader>l :bnext<CR>
+"
+" " Move to the previous buffer
+map <leader>h :bprevious<CR>
+"
+" " Close the current buffer and move to the previous one
+" " This replicates the idea of closing a tab
+map <leader>bq :bp <BAR> bd #<CR>
+"
+" " Show all open buffers and their status
+map <leader>bl :ls<CR>
 
 "----------------------------------
 " plugins
@@ -327,17 +369,6 @@ imap <PageDown> <C-O><C-D><C-O><C-D>
 :ab #d #define 
 :ab #i #include
 
-" vim -b : edit binary using xxd-format!
-augroup Binary
-  au!
-  au BufReadPre  *.bin let &bin=1
-  au BufReadPost *.bin if &bin | %!xxd
-  au BufReadPost *.bin set ft=xxd | endif
-  au BufWritePre *.bin if &bin | %!xxd -r
-  au BufWritePre *.bin endif
-  au BufWritePost *.bin if &bin | %!xxd
-  au BufWritePost *.bin set nomod | endif
-augroup END
 
 
 " Перед сохранением вырезаем пробелы на концах (только в .py файлах)
