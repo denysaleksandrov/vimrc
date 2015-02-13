@@ -31,6 +31,22 @@ let g:airline_toggle_whitespace = 1
 let g:airline#extensions#whitespace#enabled = 0
 
 Bundle 'scrooloose/nerdtree'
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_python_checkers = ['pylint', 'python']
+let g:syntastic_mode_map = { 'mode': 'passive' }
+map <S-q> :SyntasticCheck<CR>
+map <S-w> :SyntasticToggleMode<CR>
+"
+Bundle 'scrooloose/syntastic'
 Bundle 'git://github.com/davidhalter/jedi-vim' 
 map <C-q> :NERDTreeToggle<CR>
 Bundle 'ervandew/supertab'
