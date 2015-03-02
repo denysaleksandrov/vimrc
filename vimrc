@@ -14,7 +14,10 @@ augroup vimrc_autocmds
         autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
         autocmd FileType python match Excess /\%120v.*/
         autocmd FileType python set nowrap
-        autocmd FileType cfg set foldmethod=indent
+        autocmd FileType python set foldmethod=indent
+        autocmd FileType python set foldnestmax=2
+        autocmd FileType cfg    set foldmethod=indent
+        au BufRead,BufNewFile *.j2 set filetype=jinja
 augroup END
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -52,6 +55,11 @@ map <C-q> :NERDTreeToggle<CR>
 Bundle 'ervandew/supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
+
+" tagbar - a class outline viewer
+Bundle 'majutsushi/tagbar'
+" let g:tagbar_usearrows = 1
+
 Bundle 'altercation/vim-colors-solarized'
 " fugitive needed to show git branch in airline
 Bundle 'tpope/vim-fugitive'
@@ -73,6 +81,9 @@ let g:UltiSnipsEditSplit="vertical"
 " Jedi automatically starts the completion, if you type a dot, e.g. str., if
 " you don't want this:
 let g:jedi#popup_on_dot = 0
+
+" fold/unfold on pressing space
+nnoremap <space> za
 
 set relativenumber
 
@@ -264,7 +275,7 @@ imap <Ins> <c-o>i
 
 " Пробел в нормальном режиме перелистывает страницы
 " nmap <Space> <PageDown>
-noremap <space> <esc>:set number!<cr> 
+" noremap <space> <esc>:set number!<cr> 
 
 " CTRL-F для omni completion
 imap <C-F> <C-X><C-O>
@@ -371,7 +382,12 @@ map <leader>bq :bp <BAR> bd #<CR>
 "
 " " Show all open buffers and their status
 map <leader>bl :ls<CR>
-
+" 
+" " open/togle tabbar
+nnoremap <leader>t :TagbarToggle<CR>
+"
+" "
+nnoremap <leader>o :TagbarOpenAutoClose<CR>
 "----------------------------------
 " plugins
 "----------------------------------
