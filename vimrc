@@ -21,6 +21,7 @@ augroup vimrc_autocmds
 augroup END
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_path_to_python_interpreter = '/opt/local/bin/python'
 " Powerline deactivate in sake of airline(works better with buffers)
 " Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " let g:Powerline_symbols = 'fancy'
@@ -46,8 +47,6 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_checkers = ['pylint', 'python']
 let g:syntastic_mode_map = { 'mode': 'passive' }
-map <S-q> :SyntasticCheck<CR>
-map <S-w> :SyntasticToggleMode<CR>
 "
 Bundle 'scrooloose/syntastic'
 Bundle 'git://github.com/davidhalter/jedi-vim' 
@@ -91,6 +90,10 @@ set relativenumber
 if &term == "screen"
   set term=xterm
  endif
+
+" set text width to 80 and highlight next three lines
+set textwidth=80
+set cc=+1,+2,+3
 
 " copy to clipboard in Mac OS X
 set clipboard=unnamed
@@ -388,6 +391,14 @@ nnoremap <leader>t :TagbarToggle<CR>
 "
 " "
 nnoremap <leader>o :TagbarOpenAutoClose<CR>
+"
+" " enter/togle paste mode
+nnoremap <leader>p : set paste!<CR>
+"
+" " pylint shortcuts
+map <leader>q :SyntasticCheck<CR>
+map <leader>w :SyntasticToggleMode<CR>
+
 "----------------------------------
 " plugins
 "----------------------------------
